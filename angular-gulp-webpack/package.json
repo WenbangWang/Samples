@@ -1,0 +1,28 @@
+{
+  "name": "angular-gulp-webpack",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "domready": "^1.0.8"
+  },
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "exports-loader": "^0.6.3",
+    "gulp": "^3.9.1",
+    "html-loader": "^0.4.4",
+    "loader-utils": "^0.2.16",
+    "ngtemplate-loader": "wearymonkey/ngtemplate-loader#63e3461d8b1298de913e3528766068260915ae1f",
+    "source-map": "^0.5.6",
+    "webpack": "^1.13.2"
+  }
+}
