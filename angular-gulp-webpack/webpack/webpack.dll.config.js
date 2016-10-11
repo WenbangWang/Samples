@@ -6,6 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const rootPath = path.resolve(__dirname, '..')
 const buildConfig = require('../build.config')
+// To avoid variable naming collision due to the vendor is exposed to global.
+const dllName = 'vendor_[hash]'
 
 // TODO module.exports output.path and vendors' dependencies to check if the vendors' dependencies changed or not.
 
@@ -21,8 +23,7 @@ const config = module.exports = {
     filename: 'vendors.dll.js',
     path: buildConfig.dll.path,
     publicPath: buildConfig.dll.directory,
-    // To avoid variable naming collision due to the vendor is exposed to global.
-    library: 'vendors_[hash]'
+    library: dllName
   },
   module: {
     loaders: [
@@ -37,7 +38,7 @@ const config = module.exports = {
   plugins: [
     new webpack.DllPlugin({
       path: buildConfig.dll.manifest.path,
-      name: 'vendors_[hash]'
+      name: dllName
     }),
     new HtmlWebpackPlugin({
       filename: path.resolve(rootPath, '.tmp/index.html'),
