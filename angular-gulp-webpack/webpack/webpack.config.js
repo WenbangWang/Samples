@@ -12,12 +12,12 @@ const tmpHtmlFilePath = path.resolve(rootPath, '.tmp/index.html')
 
 module.exports = {
   // This is resolved from the root path of the project
-  entry: './app/app.js',
+  entry: ['./app/app.js'],
   resolve: {
     alias: dllConfig.resolve.alias
   },
   output: {
-    path: buildConfig.distribution.directory,
+    path: buildConfig.distribution.path,
     publicPath: buildConfig.distribution.directory,
     filename: 'bundle.js'
   },

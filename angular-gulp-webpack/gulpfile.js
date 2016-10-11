@@ -4,6 +4,7 @@ const gulp = require('gulp')
 const gulpUtil = require('gulp-util')
 const gulpSync = require('gulp-sync')(gulp)
 const webpack = require('webpack')
+const WebpackDevServer = require('webpack-dev-server')
 const fs = require('fs')
 const webpackAppConfig = require('./webpack/webpack.config')
 const webpackDllConfig = require('./webpack/webpack.dll.config')
@@ -22,6 +23,27 @@ gulp.task(PACKAGE_APP, callback => {
 })
 
 gulp.task(PACKAGE, gulpSync.sync([PACKAGE_DLL, PACKAGE_APP]))
+
+gulp.task('dev', [PACKAGE_DLL], callback => {
+  const dist = webpackAppConfig.output.publicPath
+  webpackAppConfig.output.publicPath = `http://localhost:9090/${dist}/`
+  // To enable dev server auto refresh.
+  webpackAppConfig.entry.unshift('webpack-dev-server/client?http://localhost:9090/')
+
+  console.log(webpackAppConfig)
+  const compiler = webpack(webpackAppConfig)
+
+  new WebpackDevServer(compiler, {
+    publicPath: `/${dist}`,
+    stats: {
+      color: true
+    }
+  }).listen(9090, 'localhost', err => {
+    if (err) {
+      throw new gulpUtil.PluginError('dev', err)
+    }
+  })
+})
 
 function packageCallback (taskName, callback) {
   return (err, stats) => {
