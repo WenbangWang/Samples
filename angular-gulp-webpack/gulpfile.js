@@ -2,6 +2,7 @@
 
 const gulp = require('gulp')
 const gulpUtil = require('gulp-util')
+const gulpSync = require('gulp-sync')(gulp)
 const webpack = require('webpack')
 const fs = require('fs')
 const webpackAppConfig = require('./webpack/webpack.config')
@@ -20,7 +21,7 @@ gulp.task(PACKAGE_APP, callback => {
   webpack(webpackAppConfig, packageCallback(PACKAGE_APP, callback))
 })
 
-gulp.task(PACKAGE, [PACKAGE_DLL, PACKAGE_APP])
+gulp.task(PACKAGE, gulpSync.sync([PACKAGE_DLL, PACKAGE_APP]))
 
 function packageCallback (taskName, callback) {
   return (err, stats) => {

@@ -53,9 +53,9 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DllReferencePlugin({
+    new CustomDllReferencePlugin({
       context: rootPath,
-      manifest: require(buildConfig.dll.manifest.path)
+      manifest: buildConfig.dll.manifest.path
     }),
     new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
@@ -64,4 +64,17 @@ module.exports = {
     })
   ],
   devtool: '#source-map'
+}
+
+// To get rid of manifest json does not exist when init config.
+function CustomDllReferencePlugin (options) {
+  webpack.DllReferencePlugin.call(this, options)
+}
+
+CustomDllReferencePlugin.prototype.apply = function (compiler) {
+  if (typeof this.options.manifest === 'string') {
+    this.options.manifest = require(this.options.manifest)
+  }
+
+  webpack.DllReferencePlugin.prototype.apply.call(this, compiler)
 }

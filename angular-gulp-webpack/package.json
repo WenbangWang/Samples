@@ -23,6 +23,7 @@
     "exports-loader": "^0.6.3",
     "extract-text-webpack-plugin": "^1.0.1",
     "gulp": "^3.9.1",
+    "gulp-sync": "^0.1.4",
     "gulp-util": "^3.0.7",
     "html-loader": "^0.4.4",
     "html-webpack-plugin": "^2.22.0",
