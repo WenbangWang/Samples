@@ -5,11 +5,10 @@ const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const dllConfig = require('./webpack.dll.config')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const buildConfig = require('../build.config')
 
-const nodeModulesPath = dllConfig.nodeModulesPath
-const rootPath = dllConfig.rootPath
+const rootPath = buildConfig.path.project
 const tmpHtmlFilePath = path.resolve(rootPath, '.tmp/index.html')
-// TODO use webpack config merge
 
 module.exports = {
   // This is resolved from the root path of the project
@@ -18,8 +17,8 @@ module.exports = {
     alias: dllConfig.resolve.alias
   },
   output: {
-    path: 'dist',
-    publicPath: 'dist',
+    path: buildConfig.distribution.directory,
+    publicPath: buildConfig.distribution.directory,
     filename: 'bundle.js'
   },
   module: {
@@ -44,7 +43,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        excludes: nodeModulesPath,
+        excludes: /node_modules/,
         loader: 'babel-loader',
         query: {
           presets: ['es2015'],
@@ -56,7 +55,7 @@ module.exports = {
   plugins: [
     new webpack.DllReferencePlugin({
       context: rootPath,
-      manifest: require('../dist/dll/vendors-manifest.json')
+      manifest: require(buildConfig.dll.manifest.path)
     }),
     new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
