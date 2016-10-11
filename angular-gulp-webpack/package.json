@@ -27,10 +27,8 @@
     "html-webpack-plugin": "^2.22.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
-    "loader-utils": "^0.2.16",
     "ngtemplate-loader": "wearymonkey/ngtemplate-loader#63e3461d8b1298de913e3528766068260915ae1f",
     "source-map": "^0.5.6",
-    "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-webstorm-debugger-script": "^1.0.1"
   }
